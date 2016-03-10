@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
@@ -7,11 +7,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
 
     <title>The World - @ViewBag.Title</title>
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="Robert Mundy">
-    <link href="css/site.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,7 +21,7 @@
 
 <body>
     <div id="sidebar">
-        <img src="img/user1.jpg" alt="Sam Hastings image" class="headshot" />
+        <img src="~/img/user1.jpg" alt="Sam Hastings image" class="headshot" />
         <span>Sam Hastings</span>
         <ul class="menu">
             <li class="active"><a href="#">Home</a></li>
@@ -33,28 +34,17 @@
             <div>
                 <button id="sidebarToggle">Toggle Menu</button>
             </div>
-            <h1>The World</h1>
 
-            <form>
-                <div>
-                    <label>Date</label>
-                    <input />
-                </div>
-                <div>
-                    <label>Location</label>
-                    <input />
-                </div>
-
-                <input type="submit" value="Add" />
-
-            </form>
+            <div>
+                @RenderBody()
+            </div>
         </div>
         <div id="footer">
             &copy; 2016 Cylex Inc.
         </div>
     </div>
 
-    <script src="lib/jquery/dist/jquery.min.js"></script>
-    <script src="js/site.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
 </body>
 </html>
