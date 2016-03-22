@@ -31,10 +31,24 @@ namespace TheWorldVS.Controllers.Web
         [HttpPost]
         public IActionResult Contact(ContactViewModel cvm)
         {
-            this.MailService.SendMail(String.Empty,
-                String.Empty,
-                $"Contact Page from {cvm.Name} ({cvm.Email})",
-                cvm.Message);
+            if (ModelState.IsValid)
+            {
+                var email = Startup.Configuration["AppSettings:SiteEmailAddress"];
+                if(String.IsNullOrWhiteSpace(email))
+                {
+                    ModelState.AddModelError("", "Could not send email");
+                }
+
+                if(this.MailService.SendMail(email,
+                    email,
+                    $"Contact Page from {cvm.Name} ({cvm.Email})",
+                    cvm.Message))
+                {
+                    ModelState.Clear();
+
+                    ViewBag.Message = "Mail Sent.  Thanks!";
+                } 
+            }
             return View();
         }
     }
