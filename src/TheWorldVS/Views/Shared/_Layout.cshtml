@@ -12,6 +12,10 @@
     <title>The World - @ViewBag.Title</title>
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="Robert Mundy">
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootswatch/yeti/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 
     <!--[if lt IE 9]>
@@ -32,7 +36,9 @@
     <div id="wrapper">
         <div id="main">
             <div>
-                <button id="sidebarToggle">Toggle Menu</button>
+                <button id="sidebarToggle" class="btn btn-primary btn-sm">
+                    <i class="fa fa-angle-left"></i>
+                </button>
             </div>
 
             <div>
@@ -40,11 +46,12 @@
             </div>
         </div>
         <div id="footer">
-            &copy; 2016 Cylex Inc.
+            <p class="text-primary">&copy; 2016 Cylex Inc.</p>
         </div>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js"></script>
 
     @RenderSection("Scripts", false)
