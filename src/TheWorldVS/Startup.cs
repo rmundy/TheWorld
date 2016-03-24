@@ -13,9 +13,9 @@
     using Microsoft.Extensions.PlatformAbstractions;
     using Models;
     using Microsoft.Extensions.Logging;
-    /// <summary>
-    /// Startup Class
-    /// </summary>
+    using Newtonsoft.Json.Serialization;    /// <summary>
+                                            /// Startup Class
+                                            /// </summary>
     public class Startup
     {
         public static IConfigurationRoot Configuration;
@@ -32,7 +32,11 @@
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(opt =>
+                {
+                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
 
             services.AddLogging();
 
