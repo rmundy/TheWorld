@@ -13,9 +13,11 @@
     using Microsoft.Extensions.PlatformAbstractions;
     using Models;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json.Serialization;    /// <summary>
-                                            /// Startup Class
-                                            /// </summary>
+    using Newtonsoft.Json.Serialization;
+    using AutoMapper;
+    using ViewModels;/// <summary>
+                     /// Startup Class
+                     /// </summary>
     public class Startup
     {
         public static IConfigurationRoot Configuration;
@@ -58,6 +60,11 @@
         {
             loggerFactory.AddDebug(LogLevel.Warning);
             app.UseStaticFiles();
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<TripViewModel, Trip>().ReverseMap();
+            });
+
             app.UseMvc(config =>
             {
                 config.MapRoute(
