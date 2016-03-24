@@ -11,6 +11,8 @@
     using Services;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.PlatformAbstractions;
+    using Models;    
+    
     /// <summary>
     /// Startup Class
     /// </summary>
@@ -31,6 +33,10 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<WorldContext>();
 #if DEBUG
             services.AddScoped<IMailService, DebugMailService>();
 #else
