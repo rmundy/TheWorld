@@ -7,7 +7,7 @@ using TheWorldVS.Models;
 
 namespace TheWorldVS.Migrations
 {
-    [DbContext(typeof(WorldContext))]
+    [DbContext(typeof(WorldRepository))]
     partial class WorldContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
