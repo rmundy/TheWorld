@@ -11,6 +11,8 @@
     using Services;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.PlatformAbstractions;
+    using Models;
+    using Microsoft.Extensions.Logging;
     /// <summary>
     /// Startup Class
     /// </summary>
@@ -31,6 +33,15 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddLogging();
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<WorldContext>();
+
+            services.AddTransient<WorldContextSeedData>();
+            services.AddScoped<IWorldRepository, WorldRepository>();
 #if DEBUG
             services.AddScoped<IMailService, DebugMailService>();
 #else
@@ -39,8 +50,9 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, WorldContextSeedData seedData, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddDebug(LogLevel.Warning);
             app.UseStaticFiles();
             app.UseMvc(config =>
             {
@@ -50,6 +62,9 @@
                     defaults: new { controller = "App", action = "Index" }
                     );
             });
+
+
+            seedData.EnsureSeedData();
         }
 
         // Entry point for the application.
