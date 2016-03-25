@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TheWorldVS.Models
 {
@@ -6,5 +7,7 @@ namespace TheWorldVS.Models
     {
         IEnumerable<Trip> GetAllTrips();
         IEnumerable<Trip> GetAllTripsWithStops();
+        void AddTrip(Trip newTrip);
+        Boolean SaveAll();
     }
 }

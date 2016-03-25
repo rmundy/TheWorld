@@ -40,8 +40,12 @@
 
                     // Save to the database
                     Logger.LogInformation("Attempting to save a new trip");
-                    Response.StatusCode = (Int32)HttpStatusCode.Created;
-                    return Json(Mapper.Map<TripViewModel>(newTrip));
+                    this.Repository.AddTrip(newTrip);
+                    if(this.Repository.SaveAll())
+                    {
+                        Response.StatusCode = (Int32)HttpStatusCode.Created;
+                        return Json(Mapper.Map<TripViewModel>(newTrip));
+                    }
                 }
             }
             catch (Exception ex)

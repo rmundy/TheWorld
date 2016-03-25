@@ -38,5 +38,15 @@
                 .OrderBy(t => t.Name)
                 .ToList();
         }
+
+        public void AddTrip(Trip newTrip)
+        {
+            this.Context.Add(newTrip);
+        }
+
+        public Boolean SaveAll()
+        {
+            return this.Context.SaveChanges() > 0;
+        }
     }
 }
