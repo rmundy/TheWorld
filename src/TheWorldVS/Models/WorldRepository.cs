@@ -60,6 +60,7 @@
         {
             var theTrip = this.GetTripByName(tripName);
             newStop.Order = theTrip.Stops.Max(s => s.Order) + 1;
+            theTrip.Stops.Add(newStop);
             this.Context.Stops.Add(newStop);
         }
     }

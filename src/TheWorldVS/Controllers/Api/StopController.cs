@@ -52,7 +52,7 @@ namespace TheWorldVS.Controllers.Api
         }
 
         [HttpPost("")]
-        public JsonResult Post(String tripName, [FromBody]StopViewModel vm)
+        public async Task<JsonResult> Post(String tripName, [FromBody]StopViewModel vm)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace TheWorldVS.Controllers.Api
                     var newStop = Mapper.Map<Stop>(vm);
 
                     // Looking up Geocoordinates
-                    var coordResult = this.CoordService.Lookup(newStop.Name);
+                    var coordResult = await this.CoordService.Lookup(newStop.Name);
                     if(!coordResult.Success)
                     {
                         Response.StatusCode = (Int32)HttpStatusCode.BadRequest;
