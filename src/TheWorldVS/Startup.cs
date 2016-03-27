@@ -36,7 +36,7 @@
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public async void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
                 .AddJsonOptions(opt =>
@@ -61,7 +61,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WorldContextSeedData seedData, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, WorldContextSeedData seedData, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddDebug(LogLevel.Warning);
             app.UseStaticFiles();
@@ -81,7 +81,7 @@
             });
 
 
-            seedData.EnsureSeedData();
+            await seedData.EnsureSeedDataAsync();
         }
 
         // Entry point for the application.
