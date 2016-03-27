@@ -9,5 +9,7 @@ namespace TheWorldVS.Models
         IEnumerable<Trip> GetAllTripsWithStops();
         void AddTrip(Trip newTrip);
         Boolean SaveAll();
+        Trip GetTripByName(String tripName);
+        void AddStop(Stop newStop, String tripName);
     }
 }

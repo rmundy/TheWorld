@@ -15,15 +15,19 @@
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json.Serialization;
     using AutoMapper;
-    using ViewModels;/// <summary>
-                     /// Startup Class
-                     /// </summary>
+    using ViewModels;
+    using Controllers.ViewModels;
+    
+    /// <summary>
+    /// Startup Class
+    /// </summary>
     public class Startup
     {
         public static IConfigurationRoot Configuration;
         public Startup(IApplicationEnvironment appEnv)
         {
             var builder = new ConfigurationBuilder()
+                .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
 
@@ -46,6 +50,7 @@
                 .AddSqlServer()
                 .AddDbContext<WorldContext>();
 
+            services.AddScoped<CoordService>();
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<IWorldRepository, WorldRepository>();
 #if DEBUG
@@ -63,6 +68,7 @@
             Mapper.Initialize(config =>
             {
                 config.CreateMap<TripViewModel, Trip>().ReverseMap();
+                config.CreateMap<StopViewModel, Stop>().ReverseMap();
             });
 
             app.UseMvc(config =>

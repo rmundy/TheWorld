@@ -9,7 +9,8 @@
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
-    using ViewModels;
+    using TheWorldVS.ViewModels;
+
     [Route("api/trips")]
     public class TripController : Controller
     {
