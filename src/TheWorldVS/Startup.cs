@@ -13,6 +13,11 @@
     using Microsoft.Extensions.PlatformAbstractions;
     using Models;
     using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json.Serialization;
+    using AutoMapper;
+    using ViewModels;
+    using Controllers.ViewModels;
+    
     /// <summary>
     /// Startup Class
     /// </summary>
@@ -22,6 +27,7 @@
         public Startup(IApplicationEnvironment appEnv)
         {
             var builder = new ConfigurationBuilder()
+                .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
 
@@ -32,7 +38,11 @@
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(opt =>
+                {
+                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
 
             services.AddLogging();
 
@@ -40,6 +50,7 @@
                 .AddSqlServer()
                 .AddDbContext<WorldContext>();
 
+            services.AddScoped<CoordService>();
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<IWorldRepository, WorldRepository>();
 #if DEBUG
@@ -54,6 +65,12 @@
         {
             loggerFactory.AddDebug(LogLevel.Warning);
             app.UseStaticFiles();
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<TripViewModel, Trip>().ReverseMap();
+                config.CreateMap<StopViewModel, Stop>().ReverseMap();
+            });
+
             app.UseMvc(config =>
             {
                 config.MapRoute(

@@ -38,5 +38,30 @@
                 .OrderBy(t => t.Name)
                 .ToList();
         }
+
+        public void AddTrip(Trip newTrip)
+        {
+            this.Context.Add(newTrip);
+        }
+
+        public Boolean SaveAll()
+        {
+            return this.Context.SaveChanges() > 0;
+        }
+
+        public Trip GetTripByName(String tripName)
+        {
+            return this.Context.Trips.Include(t => t.Stops)
+                                        .Where(t => t.Name == tripName)
+                                        .FirstOrDefault();
+        }
+
+        public void AddStop(Stop newStop, String tripName)
+        {
+            var theTrip = this.GetTripByName(tripName);
+            newStop.Order = theTrip.Stops.Max(s => s.Order) + 1;
+            theTrip.Stops.Add(newStop);
+            this.Context.Stops.Add(newStop);
+        }
     }
 }
