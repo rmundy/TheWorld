@@ -17,7 +17,7 @@
     using AutoMapper;
     using ViewModels;
     using Controllers.ViewModels;
-    
+    using Microsoft.AspNet.Identity.EntityFramework;
     /// <summary>
     /// Startup Class
     /// </summary>
@@ -44,6 +44,14 @@
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
+            services.AddIdentity<WorldUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            })
+            .AddEntityFrameworkStores<WorldContext>();
+
             services.AddLogging();
 
             services.AddEntityFramework()
@@ -65,6 +73,7 @@
         {
             loggerFactory.AddDebug(LogLevel.Warning);
             app.UseStaticFiles();
+            app.UseIdentity();
             Mapper.Initialize(config =>
             {
                 config.CreateMap<TripViewModel, Trip>().ReverseMap();
