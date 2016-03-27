@@ -10,7 +10,7 @@
     public class WorldRepository : IWorldRepository
     {
         public WorldContext Context { get; private set; }
-        public ILogger Logger { get; private set; }
+        public ILogger<WorldRepository> Logger { get; private set; }
 
         public WorldRepository(WorldContext context, ILogger<WorldRepository> logger)
         {

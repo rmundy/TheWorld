@@ -7,7 +7,7 @@ using TheWorldVS.Models;
 
 namespace TheWorldVS.Migrations
 {
-    [DbContext(typeof(WorldRepository))]
+    [DbContext(typeof(WorldContext))]
     [Migration("20160323191250_InitialDatabase")]
     partial class InitialDatabase
     {
