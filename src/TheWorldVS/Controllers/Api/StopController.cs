@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using TheWorldVS.Controllers.ViewModels;
+using TheWorldVS.ViewModels;
 using TheWorldVS.Models;
 using TheWorldVS.Services;
 
