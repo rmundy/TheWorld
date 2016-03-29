@@ -3,11 +3,11 @@
 
     angular.module('app-trips', [
         // Angular modules 
-        'ngRoute'
+        'ngRoute',
 
 
         // Custom modules 
-
+       'simpleControls'    
         // 3rd Party Modules
         
     ]);
