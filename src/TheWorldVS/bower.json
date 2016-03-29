@@ -8,6 +8,7 @@
     "jquery-validation-unobtrusive": "~3.2.6",
     "bootstrap": "*",
     "font-awesome": "*",
-    "bootswatch": "3.3.6+1"
+    "bootswatch": "3.3.6+1",
+    "angular": "*"
 	}
 }

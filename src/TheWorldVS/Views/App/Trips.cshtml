@@ -2,8 +2,10 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div class="row">
+@section Scripts {
+    <script src="~/lib/angular/angular.min.js"></script>
+}
+<div class="row" data-ng-app>
     <div class="col-md-6 col-xs-8">
         <h1>The World</h1>
 
@@ -20,7 +22,6 @@
             <div class="form-group">
                 <input type="submit" value="Add" class="btn btn-success" />
             </div>
-
         </form>
     </div>
 
