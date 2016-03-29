@@ -5,11 +5,10 @@
         .module('app-trips')
         .controller('tripsController', tripsController);
 
-    tripsController.$inject = ['$scope']; 
+    tripsController.$inject = ['$scope', '$http'];
 
-    function tripsController($scope) {
+    function tripsController($scope, $http) {
         $scope.title = 'tripsController';
-        $scope.name = 'Bobby';
         $scope.trips = [{
             name: "US Trip",
             created: new Date()
@@ -17,6 +16,20 @@
             name: "World Trip",
             created: new Date()
         }];
+        $scope.newTrip = {};
+
+        $http.get('/api/trips')
+            .then(function (response) {
+                angular.copy(response.data, $scope.trips);
+                
+            }, function () {
+
+        });
+
+        $scope.addTrip = function () {
+            $scope.trips.push({ name: $scope.newTrip.name, created: new Date() });
+            $scope.newTrip = {};
+        }
 
         activate();
 

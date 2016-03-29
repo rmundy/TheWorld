@@ -8,8 +8,8 @@
     <script src="~/js/app-trips.js"></script>
     <script src="~/js/tripsController.js"></script>
 }
-<div class="row" ng-app="app-trips">
-    <div ng-controller="tripsController" class="col-md-6 col-md-offset-3">
+<div class="row" data-ng-app="app-trips">
+    <div data-ng-controller="tripsController" class="col-md-6 col-md-offset-3">
         <table class="table table-responsive table-striped">
             <tr ng-repeat="trip in trips">
                 <td>{{trip.name}}</td>
@@ -17,6 +17,23 @@
                 <td><a href="#" class="btn btn-sm btn-primary">Manage</a></td>
             </tr>
         </table>
+
+        <form novalidate name="newTripForm" ng-submit="addTrip()">
+            <div class="form-group">
+                <div>
+                    <label for="name">Trip Name</label>
+                    <input id="name" name="name" class="form-control" type="text" data-ng-model="newTrip.name" required ng-minlength="5" />
+                    <span ng-show="newTripForm.name.$error.required" class="text-warning">Trip name is required.</span>
+                    <span ng-show="newTripForm.name.$error.minlength" class="text-warning">Trip name must be at least 5 characters.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" 
+                       value="Add" 
+                       class="btn btn-success"
+                       ng-disabled="newTripForm.$invalid" />
+            </div>
+        </form>
     </div>
     <div class="col-md-6 col-xs-8">
         <h1>The World</h1>
