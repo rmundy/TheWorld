@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TheWorldVS.Controllers.ViewModels
+namespace TheWorldVS.ViewModels
 {
     public sealed class StopViewModel
     {
