@@ -4,8 +4,20 @@
 }
 @section Scripts {
     <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/angular-route/angular-route.min.js"></script>
+    <script src="~/js/app-trips.js"></script>
+    <script src="~/js/tripsController.js"></script>
 }
-<div class="row" data-ng-app>
+<div class="row" ng-app="app-trips">
+    <div ng-controller="tripsController" class="col-md-6 col-md-offset-3">
+        <table class="table table-responsive table-striped">
+            <tr ng-repeat="trip in trips">
+                <td>{{trip.name}}</td>
+                <td>{{trip.created | date:'MM-dd-yyyy'}}</td>
+                <td><a href="#" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+        </table>
+    </div>
     <div class="col-md-6 col-xs-8">
         <h1>The World</h1>
 

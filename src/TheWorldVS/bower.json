@@ -9,6 +9,7 @@
     "bootstrap": "*",
     "font-awesome": "*",
     "bootswatch": "3.3.6+1",
-    "angular": "*"
+    "angular": "*",
+    "angular-route": "~1.5.3"
 	}
 }
