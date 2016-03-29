@@ -69,7 +69,7 @@
             return this.Context.Trips
                 .Include(t => t.Stops)
                 .OrderBy(t => t.Name)
-                .Where(t => t.Name == name)
+                .Where(t => t.UserName == name)
                 .ToList();
         }
     }
