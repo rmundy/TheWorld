@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using TheWorldVS.ViewModels;
 using TheWorldVS.Models;
 using TheWorldVS.Services;
+using Microsoft.AspNet.Authorization;
 
 namespace TheWorldVS.Controllers.Api
 {
+    [Authorize]
     [Route("api/trips/{tripName}/stops")]
     public class StopController : Controller
     {
@@ -34,7 +36,7 @@ namespace TheWorldVS.Controllers.Api
         {
             try
             {
-                var results = this.Repository.GetTripByName(tripName);
+                var results = this.Repository.GetTripByName(tripName, User.Identity.Name);
                 if(results == null)
                 {
                     return Json(null);
@@ -73,7 +75,7 @@ namespace TheWorldVS.Controllers.Api
                     newStop.Latitude = coordResult.Latitude;
 
                     // Save to the database
-                    this.Repository.AddStop(newStop, tripName);
+                    this.Repository.AddStop(newStop, tripName, User.Identity.Name);
                     if(this.Repository.SaveAll())
                     {
                         Response.StatusCode = (Int32)HttpStatusCode.Created;

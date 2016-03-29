@@ -1,6 +1,7 @@
 ﻿namespace TheWorldVS.Controllers.Api
 {
     using AutoMapper;
+    using Microsoft.AspNet.Authorization;
     using Microsoft.AspNet.Mvc;
     using Microsoft.Extensions.Logging;
     using Models;
@@ -11,6 +12,7 @@
     using System.Threading.Tasks;
     using TheWorldVS.ViewModels;
 
+    [Authorize]
     [Route("api/trips")]
     public class TripController : Controller
     {
@@ -26,6 +28,7 @@
         [HttpGet("")]
         public JsonResult Get()
         {
+            var trips = this.Repository.GetUserTripsWithStops(User.Identity.Name);
             var results = Mapper.Map<IEnumerable<TripViewModel>>(this.Repository.GetAllTripsWithStops());
             return Json(results);
         }
@@ -38,6 +41,8 @@
                 if (ModelState.IsValid)
                 {
                     var newTrip = Mapper.Map<Trip>(vm);
+
+                    newTrip.UserName = User.Identity.Name;
 
                     // Save to the database
                     Logger.LogInformation("Attempting to save a new trip");

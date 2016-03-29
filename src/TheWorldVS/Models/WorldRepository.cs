@@ -49,19 +49,28 @@
             return this.Context.SaveChanges() > 0;
         }
 
-        public Trip GetTripByName(String tripName)
+        public Trip GetTripByName(String tripName, String userName)
         {
             return this.Context.Trips.Include(t => t.Stops)
-                                        .Where(t => t.Name == tripName)
+                                        .Where(t => t.Name == tripName && t.UserName == userName)
                                         .FirstOrDefault();
         }
 
-        public void AddStop(Stop newStop, String tripName)
+        public void AddStop(Stop newStop, String tripName, String userName)
         {
-            var theTrip = this.GetTripByName(tripName);
+            var theTrip = this.GetTripByName(tripName, userName);
             newStop.Order = theTrip.Stops.Max(s => s.Order) + 1;
             theTrip.Stops.Add(newStop);
             this.Context.Stops.Add(newStop);
+        }
+
+        public IEnumerable<Trip> GetUserTripsWithStops(String name)
+        {
+            return this.Context.Trips
+                .Include(t => t.Stops)
+                .OrderBy(t => t.Name)
+                .Where(t => t.Name == name)
+                .ToList();
         }
     }
 }
