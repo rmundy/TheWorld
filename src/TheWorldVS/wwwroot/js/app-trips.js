@@ -7,8 +7,8 @@
 
 
         // Custom modules 
-       'simpleControls'    
+       'simpleControls'
         // 3rd Party Modules
-        
+
     ]);
 })();

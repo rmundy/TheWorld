@@ -26,10 +26,7 @@ namespace TheWorldVS.Controllers.Web
         [Authorize]
         public IActionResult Trips()
         {
-            var trips = this.Repository.GetAllTrips();
-
-            return View(trips);
-
+            return View();
         }
 
         public IActionResult About()
