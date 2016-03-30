@@ -1,0 +1,1 @@
+function config(r){r.when("/",{controller:"tripsController",controllerAs:"vm",templateUrl:"/views/tripsView.html"}),r.when("/editor/:tripName",{controller:"tripEditorController",controllerAs:"vm",templateUrl:"/views/tripEditorView.html"}),r.otherwise({redirectTo:"/"})}config.$inject=["$routeProvider"],angular.module("app-trips").config(config);
